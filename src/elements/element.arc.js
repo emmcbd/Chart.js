@@ -182,7 +182,6 @@ export default class Arc extends Element {
 	draw(ctx) {
 		const me = this;
 		const options = me.options;
-		const offset = options.offset || 0;
 		me.pixelMargin = (options.borderAlign === 'inner') ? 0.33 : 0;
 		me.fullCircles = Math.floor(me.circumference / TAU);
 
@@ -191,11 +190,6 @@ export default class Arc extends Element {
 		}
 
 		ctx.save();
-
-		if (offset && me.circumference < TAU) {
-			const halfAngle = (me.startAngle + me.endAngle) / 2;
-			ctx.translate(Math.cos(halfAngle) * offset, Math.sin(halfAngle) * offset);
-		}
 
 		ctx.fillStyle = options.backgroundColor;
 		ctx.strokeStyle = options.borderColor;

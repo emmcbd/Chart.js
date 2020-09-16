@@ -141,6 +141,8 @@ export default class DoughnutController extends DatasetController {
 
 		for (i = start; i < start + count; ++i) {
 			const circumference = me._circumference(i, reset);
+			const options = sharedOptions || me.resolveDataElementOptions(i, mode);
+			const offset = options.offset || 0;
 			const arc = arcs[i];
 			const properties = {
 				x: centerX + me.offsetX,
@@ -148,11 +150,11 @@ export default class DoughnutController extends DatasetController {
 				startAngle,
 				endAngle: startAngle + circumference,
 				circumference,
-				outerRadius,
-				innerRadius
+				outerRadius: outerRadius > 0 ? outerRadius + offset : 0,
+				innerRadius: innerRadius > 0 ? innerRadius + offset : 0
 			};
 			if (includeOptions) {
-				properties.options = sharedOptions || me.resolveDataElementOptions(i, mode);
+				properties.options = options
 			}
 			startAngle += circumference;
 
